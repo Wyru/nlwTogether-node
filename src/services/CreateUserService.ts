@@ -1,6 +1,6 @@
 import { getCustomRepository } from "typeorm";
 import { UsersRepositories } from "../repositories/UsersRepositories"
-import { BadRequest } from "../utils/errors";
+import { BadRequest } from "../utils/Errors";
 import { ValidateObject } from "../utils/ValidateObject";
 import * as yup from 'yup';
 interface IUserRequest {

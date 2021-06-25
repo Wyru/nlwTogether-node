@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { GeneralError } from "../utils/errors";
+import { GeneralError } from "../utils/Errors";
 
 class ErrorMiddleware {
   static logErrors = (error: Error, request: Request, response: Response, next: NextFunction) => {
