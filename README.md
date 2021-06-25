@@ -3,8 +3,8 @@
 ## Regras de Negócio
 
 - Cadastro de Usuário
-  - [ ] Não é permitido mais de um usuário com o mesmo e-mail
-  - [ ] Não é permitido usuários sem um e-email
+  - [x] Não é permitido mais de um usuário com o mesmo e-mail
+  - [x] Não é permitido usuários sem um e-email
 - Cadastro de TAG
   - [ ] Não é permitido cadastrar mais de uma tag com o mesmo nome
   - [ ] Não é permitido sem um nome
