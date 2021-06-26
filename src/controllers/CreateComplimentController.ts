@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import { CreateComplimentService } from "../services/CreateComplimentService";
-import { GetTokenPayload } from "../utils/GetTokenPayload";
 
 class CreateComplimentController {
   static async handle(request: Request, response: Response) {
@@ -11,8 +10,7 @@ class CreateComplimentController {
       message,
     } = request.body;
 
-
-    const { sub: userSenderId } = GetTokenPayload.execute(request);
+    const userSenderId = request.userId;
 
     const compliment = await CreateComplimentService.execute({
       userSenderId,
