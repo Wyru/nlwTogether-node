@@ -4,18 +4,18 @@ import { GetTagsController } from '../controllers/GetTagsController';
 import { AuthorizationMiddleware } from '../middlewares/AuthorizationMiddleware';
 
 AuthorizationMiddleware
-const tagsRouter = express.Router();
+const tagsRoutes = express.Router();
 
-tagsRouter.get(
+tagsRoutes.get(
   '/tags',
   GetTagsController.handle
 );
 
-tagsRouter.post(
+tagsRoutes.post(
   '/tags',
   AuthorizationMiddleware.ensureSession,
   AuthorizationMiddleware.ensureAdmin,
   CreateTagController.handle
 );
 
-export default tagsRouter;
+export default tagsRoutes;

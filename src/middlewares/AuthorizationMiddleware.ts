@@ -1,16 +1,22 @@
 import { NextFunction, Request, Response } from "express";
 import { Forbidden, Unauthorized } from "../utils/Errors";
-
+import { JsonWebTokenError, TokenExpiredError, verify, decode } from 'jsonwebtoken'
 class AuthorizationMiddleware {
+
   static ensureSession = (request: Request, response: Response, next: NextFunction) => {
 
-    // Obtém jwt
-    // Valida
+    const token = request.headers.authorization?.replace('Bearer ', '');
 
-    const isValidJWT = true;
+    const secret = process.env.TOKEN_SECRET;
 
-    if (!isValidJWT) {
-      throw new Unauthorized('You shall not pass!');
+    try {
+
+      verify(token, secret);
+
+    } catch (error) {
+      if (error instanceof JsonWebTokenError || error instanceof TokenExpiredError) {
+        throw new Unauthorized('You shall not pass!');
+      }
     }
 
     return next();
@@ -18,12 +24,15 @@ class AuthorizationMiddleware {
 
   static ensureAdmin = (request: Request, response: Response, next: NextFunction) => {
 
-    // Obtém jwt
-    // Valida
+    const token = request.headers.authorization?.replace('Bearer ', '');
 
-    const isAdmin = true;
+    const result = decode(token, {
+      json: true
+    }) as any;
 
-    if (!isAdmin) {
+    //TODO: talvez seja melhor verificar na base de dados a permissão
+
+    if (!(result.admin)) {
       throw new Forbidden('You are too weak!');
     }
 

@@ -3,7 +3,7 @@ import 'reflect-metadata';
 import express from 'express'
 import helmet from 'helmet';
 import cors from 'express'
-import router from './routes';
+import routes from './routes/index.routes';
 import morgan from 'morgan'
 import { SERVER_CONFIG } from './config'
 import { ErrorMiddleware } from './middlewares/ErrorMiddleware';
@@ -17,7 +17,7 @@ app.use(express.json());
 app.use(helmet());
 app.use(morgan('short'));
 
-app.use(router);
+app.use(routes);
 
 app.use(ErrorMiddleware.logErrors);
 app.use(ErrorMiddleware.handle);
