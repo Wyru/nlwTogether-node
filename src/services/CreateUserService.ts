@@ -20,7 +20,7 @@ const userRequestSchema = yup.object().shape({
 
 class CreateUserService {
 
-  static async execute({ name, email, admin, password }: IUserRequest) {
+  static async execute({ name, email, admin = false, password }: IUserRequest) {
     const usersRepository = getCustomRepository(UsersRepositories);
 
     const validation = ValidateObject.execute({ name, email, admin, password }, userRequestSchema);
@@ -40,7 +40,7 @@ class CreateUserService {
     const encryptedPassword = await hash(password, 8);
 
     const user = usersRepository.create({
-      name, email, admin: !!admin, password: encryptedPassword
+      name, email, admin, password: encryptedPassword
     });
 
     await usersRepository.save(user);

@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { GetUsersService } from "../services/GetUsersService";
 
-class GetUserController {
+class GetUsersController {
   static async handle(request: Request, response: Response) {
 
     const user = await GetUsersService.execute();
@@ -11,4 +11,4 @@ class GetUserController {
 }
 
 
-export { GetUserController }
+export { GetUsersController }

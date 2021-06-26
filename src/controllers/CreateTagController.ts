@@ -6,11 +6,11 @@ class CreateTagController {
 
     const { name } = request.body;
 
-    const user = await CreateTagService.execute({
+    const tag = await CreateTagService.execute({
       name
     });
 
-    return response.json(user);
+    return response.json(tag);
   }
 }
 

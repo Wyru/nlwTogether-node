@@ -4,9 +4,9 @@ import { GetTagsService } from "../services/GetTagsService";
 class GetTagsController {
   static async handle(request: Request, response: Response) {
 
-    const user = await GetTagsService.execute();
+    const tags = await GetTagsService.execute();
 
-    return response.json(user);
+    return response.json(tags);
   }
 }
 
