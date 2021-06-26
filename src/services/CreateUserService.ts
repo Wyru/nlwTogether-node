@@ -17,7 +17,7 @@ const userRequestSchema = yup.object().shape({
 
 class CreateUserService {
 
-  async execute({ name, email, admin }: IUserRequest) {
+  static async execute({ name, email, admin }: IUserRequest) {
     const usersRepository = getCustomRepository(UsersRepositories);
 
     const validation = ValidateObject.execute({ name, email, admin }, userRequestSchema);

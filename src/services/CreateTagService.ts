@@ -14,7 +14,7 @@ const createTagRequestSchema = yup.object().shape({
 
 class CreateTagService {
 
-  async execute({ name }: ICreateTagRequest) {
+  static async execute({ name }: ICreateTagRequest) {
     const tagsRepositories = getCustomRepository(TagsRepositories);
 
     const validation = ValidateObject.execute({ name, }, createTagRequestSchema);

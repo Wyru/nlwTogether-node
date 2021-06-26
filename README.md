@@ -13,3 +13,6 @@
   - [ ] Não é permitido um usuário cadastrar um elogio para si
   - [ ] Não é permitido cadastrar elogios para usuários inválidos
   - [ ] Não é permitido cadastrar um elogio de forma anônima
+- Sessão do Usuário
+  - [ ] Deve ser possível logar com um usuário e senha
+  - [ ] Deve ser possível encerrar a sessão do usuário

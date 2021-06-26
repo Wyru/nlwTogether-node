@@ -3,11 +3,10 @@ import { CreateTagService } from "../services/CreateTagService";
 
 class CreateTagController {
   static async handle(request: Request, response: Response) {
-    const createTagService = new CreateTagService();
 
     const { name } = request.body;
 
-    const user = await createTagService.execute({
+    const user = await CreateTagService.execute({
       name
     });
 

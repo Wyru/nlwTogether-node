@@ -20,6 +20,7 @@
   "homepage": "https://github.com/Wyru/nlwTogether-node#readme",
   "devDependencies": {
     "@types/express": "^4.17.12",
+    "@types/jsonwebtoken": "^8.5.2",
     "@types/morgan": "^1.9.2",
     "@types/uuid": "^8.3.0",
     "@types/yup": "^0.29.11",
@@ -31,6 +32,7 @@
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",
     "helmet": "^4.6.0",
+    "jsonwebtoken": "^8.5.1",
     "morgan": "^1.10.0",
     "reflect-metadata": "^0.1.13",
     "sqlite3": "^5.0.2",
