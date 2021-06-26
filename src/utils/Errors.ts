@@ -19,9 +19,24 @@ export class BadRequest extends GeneralError {
     this.statusCode = 400;
   }
 }
+
 export class NotFound extends GeneralError {
   constructor(message: string) {
     super(message);
     this.statusCode = 404;
+  }
+}
+
+export class Unauthorized extends GeneralError {
+  constructor(message: string) {
+    super(message);
+    this.statusCode = 401;
+  }
+}
+
+export class Forbidden extends GeneralError {
+  constructor(message: string) {
+    super(message);
+    this.statusCode = 403;
   }
 }

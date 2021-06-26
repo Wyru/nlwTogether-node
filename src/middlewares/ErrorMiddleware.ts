@@ -12,7 +12,6 @@ class ErrorMiddleware {
   static handle(error: Error, request: Request, response: Response, next: NextFunction) {
     if (error instanceof GeneralError) {
       return response.status(error.getCode()).json({
-        status: 'Business Exception!',
         message: error.message
       });
     }
