@@ -2,9 +2,9 @@ import { getCustomRepository } from "typeorm";
 import { BadRequest } from "../utils/Errors";
 import { ValidateObject } from "../utils/ValidateObject";
 import * as yup from 'yup';
-import { ComplimentsRepositories } from "../repositories/ComplimentsRepositories";
-import { UsersRepositories } from "../repositories/UsersRepositories";
-import { TagsRepositories } from "../repositories/TagsRepositories";
+import { ComplimentsRepository } from "../repositories/ComplimentsRepository";
+import { UsersRepository } from "../repositories/UsersRepository";
+import { TagsRepository } from "../repositories/TagsRepository";
 
 interface ICreateComplimentRequest {
   userSenderId: string;
@@ -43,19 +43,19 @@ class CreateComplimentService {
     }
 
 
-    const userRepository = getCustomRepository(UsersRepositories);
+    const userRepository = getCustomRepository(UsersRepository);
     const userReceiver = await userRepository.findOne(userReceiverId);
     if (!userReceiver) {
       throw new BadRequest("You must provide a valid receiver!");
     }
 
-    const tagsRepository = getCustomRepository(TagsRepositories);
+    const tagsRepository = getCustomRepository(TagsRepository);
     const tag = await tagsRepository.findOne(tagId);
     if (!tag) {
       throw new BadRequest("You must provide a valid tag!");
     }
 
-    const complimentsRepository = getCustomRepository(ComplimentsRepositories);
+    const complimentsRepository = getCustomRepository(ComplimentsRepository);
 
     const compliment = complimentsRepository.create({
       userSenderId,

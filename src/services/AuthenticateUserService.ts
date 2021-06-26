@@ -1,5 +1,5 @@
 import { getCustomRepository } from "typeorm";
-import { UsersRepositories } from "../repositories/UsersRepositories";
+import { UsersRepository } from "../repositories/UsersRepository";
 import * as yup from 'yup';
 import { BadRequest, Unauthorized } from "../utils/Errors";
 import { ValidateObject } from "../utils/ValidateObject";
@@ -25,7 +25,7 @@ class AuthenticateUserService {
       throw new BadRequest(validation.message);
     }
 
-    const userRepositories = getCustomRepository(UsersRepositories);
+    const userRepositories = getCustomRepository(UsersRepository);
 
     const user = await userRepositories.findOne({
       email

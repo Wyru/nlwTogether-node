@@ -2,7 +2,7 @@ import { getCustomRepository } from "typeorm";
 import { BadRequest } from "../utils/Errors";
 import { ValidateObject } from "../utils/ValidateObject";
 import * as yup from 'yup';
-import { TagsRepositories } from "../repositories/TagsRepositories";
+import { TagsRepository } from "../repositories/TagsRepository";
 
 interface ICreateTagRequest {
   name: string;
@@ -15,7 +15,7 @@ const createTagRequestSchema = yup.object().shape({
 class CreateTagService {
 
   static async execute({ name }: ICreateTagRequest) {
-    const tagsRepositories = getCustomRepository(TagsRepositories);
+    const tagsRepository = getCustomRepository(TagsRepository);
 
     const validation = ValidateObject.execute({ name, }, createTagRequestSchema);
 
@@ -23,7 +23,7 @@ class CreateTagService {
       throw new BadRequest(validation.message);
     }
 
-    const tagAlreadyExists = await tagsRepositories.findOne({
+    const tagAlreadyExists = await tagsRepository.findOne({
       name
     });
 
@@ -31,11 +31,11 @@ class CreateTagService {
       throw new BadRequest('Tag Already Exists!');
     }
 
-    const tag = tagsRepositories.create({
+    const tag = tagsRepository.create({
       name,
     });
 
-    await tagsRepositories.save(tag);
+    await tagsRepository.save(tag);
 
     return tag;
   }

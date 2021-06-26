@@ -1,6 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import { Forbidden, Unauthorized } from "../utils/Errors";
-import { JsonWebTokenError, TokenExpiredError, verify, decode } from 'jsonwebtoken'
+import { JsonWebTokenError, TokenExpiredError, verify } from 'jsonwebtoken'
+import { getCustomRepository } from "typeorm";
+import { UsersRepository } from "../repositories/UsersRepository";
 
 interface ITokenPayload {
   sub: string;
@@ -8,7 +10,7 @@ interface ITokenPayload {
 }
 class AuthorizationMiddleware {
 
-  static ensureSession = (request: Request, response: Response, next: NextFunction) => {
+  static ensureSession(request: Request, response: Response, next: NextFunction) {
 
     const token = request.headers.authorization?.replace('Bearer ', '');
 
@@ -16,9 +18,8 @@ class AuthorizationMiddleware {
 
     try {
 
-      const { sub, admin } = verify(token, secret) as ITokenPayload;
+      const { sub } = verify(token, secret) as ITokenPayload;
       request.userId = sub;
-      request.admin = admin;
 
     } catch (error) {
       if (error instanceof JsonWebTokenError || error instanceof TokenExpiredError) {
@@ -29,11 +30,15 @@ class AuthorizationMiddleware {
     return next();
   }
 
-  static ensureAdmin = (request: Request, response: Response, next: NextFunction) => {
+  static async ensureAdmin(request: Request, response: Response, next: NextFunction) {
 
-    const admin = request.admin;
+    const userId = request.userId;
 
-    if (!(admin)) {
+    const userRepository = getCustomRepository(UsersRepository);
+
+    const user = await userRepository.findOne(userId);
+
+    if (!(user.admin)) {
       throw new Forbidden('You are too weak!');
     }
 

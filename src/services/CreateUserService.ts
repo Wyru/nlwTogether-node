@@ -1,5 +1,5 @@
 import { getCustomRepository } from "typeorm";
-import { UsersRepositories } from "../repositories/UsersRepositories"
+import { UsersRepository } from "../repositories/UsersRepository"
 import { BadRequest } from "../utils/Errors";
 import { ValidateObject } from "../utils/ValidateObject";
 import * as yup from 'yup';
@@ -21,7 +21,7 @@ const userRequestSchema = yup.object().shape({
 class CreateUserService {
 
   static async execute({ name, email, admin = false, password }: IUserRequest) {
-    const usersRepository = getCustomRepository(UsersRepositories);
+    const usersRepository = getCustomRepository(UsersRepository);
 
     const validation = ValidateObject.execute({ name, email, admin, password }, userRequestSchema);
 
